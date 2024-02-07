@@ -138,9 +138,9 @@ DKR_characters = [
 "John Blake",
 "Selina Kyle"]
 
-BB_id = Movie.find_by({ "name" => "Batman Begins" })
-DK_id = Movie.find_by({ "name" => "The Dark Knight" })
-DKR_id = Movie.find_by({ "name" => "The Dark Knight Rises" })
+BB_id = Movie.find_by({ "title" => "Batman Begins" })
+DK_id = Movie.find_by({ "title" => "The Dark Knight" })
+DKR_id = Movie.find_by({ "title" => "The Dark Knight Rises"})
 
 
 for person in BB_characters
@@ -150,8 +150,23 @@ for person in BB_characters
     role.save
 end
 
+for person in DK_characters
+    role = Role.new 
+    role.character_name = person
+    role.movie_id = DK_id["id"]
+    role.save
+end
+
+for person in DKR_characters
+    role = Role.new 
+    role.character_name = person
+    role.movie_id = DKR_id["id"]
+    role.save
+end
+
 all_actors = Actor.all
 all_movies = Movie.all
+all_roles = Role.all
 
 # Prints a header for the movies output
 puts "Movies"
@@ -179,3 +194,9 @@ for actor in all_actors
     name = actor["name"]
     puts "#{name}"
   end
+
+for role in all_roles
+    name = role["character_name"]
+    movie = ((Movie.where({"id" => role["movie_id"]})).inspect)[title]
+    puts "#{name} #{movie}"
+end
