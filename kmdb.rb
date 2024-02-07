@@ -115,11 +115,28 @@ DK_actor_names = ["Christian Bale", "Heath Ledger","Aaron Eckhart", "Michael Cai
 
 DKR_actor_names = ["Christian Bale", "Gary Oldman", "Tom Hardy", "Joseph Gordon-Levitt", "Anne Hathaway"]
 
+BB_id = Movie.find_by({ "title" => "Batman Begins" })
+DK_id = Movie.find_by({ "title" => "The Dark Knight" })
+DKR_id = Movie.find_by({ "title" => "The Dark Knight Rises"})
 
 for name in BB_actor_names 
     actor = Actor.new 
     actor.name = name
     actor.movie_id = BB_id
+    actor.save
+end
+
+for name in DK_actor_names 
+    actor = Actor.new 
+    actor.name = name
+    actor.movie_id = DK_id
+    actor.save
+end
+
+for name in DKR_actor_names 
+    actor = Actor.new 
+    actor.name = name
+    actor.movie_id = DKR_id
     actor.save
 end
 
@@ -143,9 +160,7 @@ DKR_characters = [
 "John Blake",
 "Selina Kyle"]
 
-BB_id = Movie.find_by({ "title" => "Batman Begins" })
-DK_id = Movie.find_by({ "title" => "The Dark Knight" })
-DKR_id = Movie.find_by({ "title" => "The Dark Knight Rises"})
+
 
 for person in BB_characters
     role = Role.new 
