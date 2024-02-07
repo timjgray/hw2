@@ -108,13 +108,18 @@ movie3["studio_id"] = wb_studio["id"]
 movie3.save
 
 
-actor_names = ["Christian Bale", "Michael Caine", "Liam Neeson", "Katie Holmes", "Gary Oldman", 
-"Christian Bale", "Heath Ledger","Aaron Eckhart", "Michael Caine", 
-"Maggie Gyllenhaal", "Gary Oldman", "Tom Hardy", "Joseph Gordon-Levitt", "Anne Hathaway"]
+BB_actor_names = ["Christian Bale", "Michael Caine", "Liam Neeson", "Katie Holmes", "Gary Oldman"]
 
-for name in actor_names 
+DK_actor_names = ["Christian Bale", "Heath Ledger","Aaron Eckhart", "Michael Caine", 
+"Maggie Gyllenhaal"]
+
+DKR_actor_names = ["Christian Bale", "Gary Oldman", "Tom Hardy", "Joseph Gordon-Levitt", "Anne Hathaway"]
+
+
+for name in BB_actor_names 
     actor = Actor.new 
     actor.name = name
+    actor.movie_id = BB_id
     actor.save
 end
 
@@ -142,11 +147,24 @@ BB_id = Movie.find_by({ "title" => "Batman Begins" })
 DK_id = Movie.find_by({ "title" => "The Dark Knight" })
 DKR_id = Movie.find_by({ "title" => "The Dark Knight Rises"})
 
-
 for person in BB_characters
     role = Role.new 
     role.character_name = person
     role.movie_id = BB_id["id"]
+    role.save
+end
+
+for person in DK_characters
+    role = Role.new 
+    role.character_name = person
+    role.movie_id = DK_id["id"]
+    role.save
+end
+
+for person in DKR_characters
+    role = Role.new 
+    role.character_name = person
+    role.movie_id = DKR_id["id"]
     role.save
 end
 
