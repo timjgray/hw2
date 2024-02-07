@@ -84,13 +84,73 @@ new_studio = Studio.new
 new_studio["name"] = "Warner Bros."
 new_studio.save
 
+wb_studio = Studio.find_by({ "name" => "Warner Bros." })
+
 movie1 = Movie.new
 movie1["title"] = "Batman Begins"
 movie1["year released"] = 2005
-movie1["rated"] = "PG13"
-movie1["studio_id"] = Studio.find_by({ "name" => "Warner Bros." })
+movie1["rated"] = "PG-13"
+movie1["studio_id"] = wb_studio["id"]
 movie1.save
 
+movie2 = Movie.new
+movie2["title"] = "The Dark Knight"
+movie2["year released"] = 2008
+movie2["rated"] = "PG-13"
+movie2["studio_id"] = wb_studio["id"]
+movie2.save
+
+movie3 = Movie.new
+movie3["title"] = "The Dark Knight Rises"
+movie3["year released"] = 2012
+movie3["rated"] = "PG-13"
+movie3["studio_id"] = wb_studio["id"]
+movie3.save
+
+
+actor_names = ["Christian Bale", "Michael Caine", "Liam Neeson", "Katie Holmes", "Gary Oldman", 
+"Christian Bale", "Heath Ledger","Aaron Eckhart", "Michael Caine", 
+"Maggie Gyllenhaal", "Gary Oldman", "Tom Hardy", "Joseph Gordon-Levitt", "Anne Hathaway"]
+
+for name in actor_names 
+    actor = Actor.new 
+    actor.name = name
+    actor.save
+end
+
+BB_characters = [
+"Bruce Wayne",
+"Alfred",
+"Ra's Al Ghul",
+"Rachel Dawes",
+"Commissioner Gordon"]
+
+DK_characters =[ 
+"Bruce Wayne", 
+"Joker",
+"Harvey Dent",
+"Alfred"] 
+
+DKR_characters = [
+"Bruce Wayne",
+"Comissioner Gordon", 
+"Bane",
+"John Blake",
+"Selina Kyle"]
+
+BB_id = Movie.find_by({ "name" => "Batman Begins" })
+DK_id = Movie.find_by({ "name" => "The Dark Knight" })
+DKR_id = Movie.find_by({ "name" => "The Dark Knight Rises" })
+
+
+for person in BB_characters
+    role = Role.new 
+    role.character_name = person
+    role.movie_id = BB_id["id"]
+    role.save
+end
+
+all_actors = Actor.all
 all_movies = Movie.all
 
 # Prints a header for the movies output
@@ -100,7 +160,12 @@ puts ""
 
 # Query the movies data and loop through the results to display the movies output.
 for movie in all_movies
-    print movie["title"], " " , movie["year released"], " ", movie["rated"], " ", movie["studio_id"]
+    title = movie["title"]
+    year = movie["year released"]
+    rating = movie["rated"]
+    studio = "Warner Bros."
+    puts "#{title} #{year} #{rating} #{studio}"
+    #print movie["title"], " " , movie["year released"], " ", movie["rated"], " ", movie["studio_id"]
   end
 
 # Prints a header for the cast output
@@ -110,4 +175,7 @@ puts "========"
 puts ""
 
 # Query the cast data and loop through the results to display the cast output for each movie.
-# TODO!
+for actor in all_actors
+    name = actor["name"]
+    puts "#{name}"
+  end
